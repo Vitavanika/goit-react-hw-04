@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
 import SearchBar from "./components/SearchBar/SearchBar";
 import ImageGallery from "./components/ImageGallery/ImageGallery";
 import Loader from "./components/Loader/Loader";
@@ -47,6 +48,7 @@ function App() {
       );
       setTotalPages(response.data.total_pages);
       if (response.data.results.length === 0 && pageNum === 1) {
+        toast.error("No images found.");
         setError(
           "No images found for your query. Please try a different search term."
         );
@@ -109,6 +111,18 @@ function App() {
 
   return (
     <div className={styles.appContainer}>
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          error: {
+            duration: 4000,
+            style: {
+              background: "#FF4B4B",
+              color: "#fff",
+            },
+          },
+        }}
+      />
       <SearchBar
         onSubmit={handleSearchSubmit}
         onClearSearch={handleClearSearch}
@@ -129,7 +143,6 @@ function App() {
           imageData={selectedImage}
         />
       )}
-
     </div>
   );
 }

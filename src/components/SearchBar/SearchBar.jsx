@@ -13,7 +13,7 @@ function SearchBar({ onSubmit, onClearSearch, currentQueryActive }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (inputValue.trim() === "") {
-      toast.error("Please enter a search term.", {position:"top-right"});
+      toast.error("Please enter a search term.");
       if (currentQueryActive && onClearSearch) {
         onClearSearch();
       }
